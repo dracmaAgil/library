@@ -1,0 +1,10 @@
+FactoryBot.define do
+  factory :book do
+    name { Faker::Name.name }
+    author { Faker::Name.name }
+    user
+    status 'available'
+    after(:build) {|book|  book.categories = [create(:category)]}
+   
+  end
+end
