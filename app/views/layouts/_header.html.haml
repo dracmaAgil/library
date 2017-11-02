@@ -1,0 +1,18 @@
+
+%nav.navbar.navbar-fixed-top.navbar-inverse.navbar-dark.bg-dark
+  .container-fluid
+    = button_tag type: 'button', class: 'navbar-toggle collapsed', :"data-toggle" => "collapse", :"data-target" => "#library-navbar-collapse-1", "aria-expanded" => false do
+      %span{class: 'sr-only'} Toggle
+      %span{class: 'icon-bar'}
+      %span{class: 'icon-bar'}
+      %span{class: 'icon-bar'}
+    #library-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav.mr-auto
+        %li.nav-item
+          = link_to 'home', root_url
+        %li.nav-item
+          = link_to 'users', users_url
+        %li.nav-item
+          = link_to 'books', books_url
+        %li.nav-item
+          = link_to 'books categories', categories_url

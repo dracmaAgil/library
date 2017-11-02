@@ -1,0 +1,54 @@
+#container.top-buffer
+  .row
+    .col-md-4
+      -if @users.empty?
+        %h4 there is no users yet
+      -else
+        %table.table.table-striped.table-hover
+          %thead.thead-default
+            %tr
+              %th Descripción
+              %th Email
+              %th Cellphone
+
+          %tbody
+            - @users.each do |user|
+              %tr
+                %td= user.name
+                %td= user.email
+                %td= user.cellphone
+    .col-md-4
+      -if @books.empty?
+        %h4 there is no books yet
+      -else
+        %table.table.table-striped.table-hover
+          %thead.thead-default
+            %tr
+              %th Name
+              %th Author
+              %th Status
+
+          %tbody
+            - @books.each do |book|
+              %tr
+                %td= book.name
+                %td= book.author
+                %td= book.status
+    .col-md-4
+      -if @categories.empty?
+        %h4 there is no categories yet
+      -else
+        %table.table.table-striped.table-hover
+          %thead.thead-default
+            %tr
+              %th Name
+              %th Description
+
+          %tbody
+            - @categories.each do |category|
+              %tr
+                %td= category.name
+                %td= category.email
+                %td= category.cellphone
+                
+
