@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = @users.all
+    @users = User.where(active: 1).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def create
     begin
       @user = User.new(user_params)
+      @user.active = 1
       if @user.save
         redirect_to users_path, notice: 'Created user'
       else
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-      @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
@@ -40,6 +41,19 @@ class UsersController < ApplicationController
       end
     rescue Exception => e
       redirect_to edit_user_path, flash: { error: e.message }
+    end
+  end
+
+  def cancel
+    @user = User.find(params[:user_id])
+    begin
+      if @user.books.empty? && @user.update_attribute(:active, 0)
+        redirect_to users_path, notice: 'user cancelled'
+      else
+        redirect_to users_path, flash: { error: @user.errors.full_messages.to_sentence }
+      end
+    rescue Exception => e
+      redirect_to users_path, flash: { error: e.message }
     end
   end
 

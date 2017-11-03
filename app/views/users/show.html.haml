@@ -1,0 +1,21 @@
+.container.top-buffer
+  .row
+    .col-xs-6.col-md-10
+      %h3= "User #{@user.name}"
+    .col-xs-6.col-md-2
+      = link_to "return", users_path, id: 'users_index'
+  .row
+    .col-md-4
+      %h5 Email
+      %p= "#{@user.email}"
+    .col-md-4
+      %h5 Cellphone
+      %p= "#{@user.cellphone}"
+    .col-md-4
+      -if @user.books.empty?
+        %h5 Tere is no borrowed books
+      -else
+        %h5 User Books
+        %ul
+          -@user.books.each do |book|
+            %li= book.name

@@ -1,0 +1,18 @@
+%table.table.table-striped.table-bordered
+  %thead.thead-dark
+    %th Name
+    %th Author
+    %th Categories
+  %tbody
+    %tr
+      %td
+        = form.text_field :name
+      %td
+        = form.text_field :author
+      %td
+        %ul
+          - @categories.each do |category|
+            %li
+              = check_box_tag 'book[category_ids][]', category.id, @book.categories.include?(category)
+              = category.name
+%br

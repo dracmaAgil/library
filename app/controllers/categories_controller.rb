@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = @categories.all
+    @categories = Category.where(active: 1).paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -39,6 +39,19 @@ class CategoriesController < ApplicationController
       end
     rescue Exception => e
       redirect_to edit_category_path, flash: { error: e.message }
+    end
+  end
+
+  def cancel
+    @category = Category.find(params[:category_id])
+    begin
+      if @category.books.empty? && @category.update_attribute(:active, 0)
+        redirect_to categories_path, notice: 'category cancelled'
+      else
+        redirect_to categories_path, flash: { error: @category.errors.full_messages.to_sentence }
+      end
+    rescue Exception => e
+      redirect_to categories_path, flash: { error: e.message }
     end
   end
 

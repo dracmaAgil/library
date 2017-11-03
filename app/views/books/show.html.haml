@@ -1,0 +1,29 @@
+.container.top-buffer
+  .row
+    .col-xs-6.col-md-10
+      %h3= "Book #{@book.name}"
+    .col-xs-6.col-md-2
+      = link_to "return", books_path, id: 'categories_index'
+  .row
+    .col-md-4
+      %h5 Author
+      %p= "#{@book.author}"
+  .row
+    -if @book.categories.empty?
+      This book do not have any category
+    -else
+        .col-md-4
+          %h5 Description
+          %p= "#{@book.name}"
+  .row
+    -if @book.user.empty?
+      This book is not borrowed
+    -else
+      .col-md-4
+        %h5 User
+        %p= "#{@book.user.name}"
+  .row
+    .col-md-4
+      %h5 Status
+      %p= "#{@book.Status}"
+    
