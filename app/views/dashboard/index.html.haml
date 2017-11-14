@@ -4,6 +4,7 @@
       -if @users.empty?
         %h4 there is no users yet
       -else
+        %h3 Last 5 users
         %table.table.table-striped.table-bordered.table-hover
           %thead.thead-dark
             %tr
@@ -17,27 +18,44 @@
                 %td= user.name
                 %td= user.email
                 %td= user.cellphone
-    .col-md-4
+    .col-md-5
       -if @books.empty?
         %h4 there is no books yet
       -else
+        %h3 Last 5 books
         %table.table.table-striped.table-bordered.table-hover
           %thead.thead-dark
             %tr
               %th Name
               %th Author
               %th Status
+              %th Category
 
           %tbody
             - @books.each do |book|
               %tr
                 %td= book.name
                 %td= book.author
-                %td= book.status
-    .col-md-4
+                %td
+                  -if book.status.nil?
+                    = 'Book without status'
+                  -elsif book.is_available?
+                    = 'Available'
+                  -else
+                    = 'Not Available'
+                %td
+                  -if book.categories.empty?
+                    = 'There is no categories asigned'
+                  - else
+                    %ul
+                      - book.categories.each do |category|
+                        %li= category.name
+                
+    .col-md-3
       -if @categories.empty?
         %h4 there is no categories yet
       -else
+        %h3 Last 5 categories
         %table.table.table-striped.table-bordered.table-hover
           %thead.thead-dark
             %tr
@@ -48,7 +66,6 @@
             - @categories.each do |category|
               %tr
                 %td= category.name
-                %td= category.email
-                %td= category.cellphone
+                %td= category.description
                 
 

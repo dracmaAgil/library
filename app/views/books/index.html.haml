@@ -16,6 +16,7 @@
               %th Name
               %th Author
               %th Status
+              %th User
               %th Categories
               %th Actions
 
@@ -25,6 +26,7 @@
                 %td= t(book.name)
                 %td= book.author
                 %td= book.status
+                %td= book.user_id.nil? ? 'not borrowed' : User.find(book.user_id).name
                 %td
                   %ul
                     - book.categories.each do |category|
@@ -37,6 +39,8 @@
                   - if book.status == 'available'
                     = link_to book_cancel_path(book), class: 'has-tooltip', data: { toggle: 'tooltip', placement: 'top', :confirm => 'Are you sure?' }, title: 'Delete books' do
                       %i.fa.fa-trash.bigger-130.fa-lg.text-danger
+                  = link_to book_listing_users_path(book), class: 'has-tooltip', data: { toggle: 'tooltip', placement: 'top' }, title: 'book show' do
+                    %i.fa.fa-book.bigger-130.fa-lg
   .row
     .col-md-12.apple_pagination
       = will_paginate @books

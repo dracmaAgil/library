@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   
+  include BorrowingBooks
+
   before_action :get_categories, only:[:new, :edit]
   def index
     if Category.count > 0
@@ -53,18 +55,36 @@ class BooksController < ApplicationController
   def cancel
     @book = Book.find(params[:book_id])
     begin
-      if @book.user.empty? && @book.categories.empty? && @book.update_attribute(:active, 0)
+      if @book.user_id.empty? && @book.categories.empty? && @book.update_attribute(:active, 0)
         redirect_to books_path, notice: 'book cancelled'
       else
-        redirect_to edit_book_path, flash: { error: @book.errors.full_messages.to_sentence }
+        redirect_to books_path, flash: { error: 'Only can delete books without vategories and not borrowed' }
       end
     rescue Exception => e
-      redirect_to edit_book_path, flash: { error: e.message }
+      redirect_to books_path, flash: { error: e.message }
     end
   end
 
   def get_categories
     @categories = Category.where(active: 1)
+  end
+
+  def listing_users
+    @book = Book.find(params[:book_id])
+    @users = User.where('active = 1')
+  end
+
+  def borrowing_book
+    @book = Book.find(params[:book_id])
+    begin
+      if borrow_book
+        redirect_to books_path
+      else
+        redirect_to book_listing_users_path(@book), flash: { error: @book.errors.full_messages.to_sentence }
+      end
+    rescue Exception => e
+      redirect_to book_listing_users_path(@book), flash: { error: e.message }
+    end
   end
 
   private
@@ -73,6 +93,7 @@ class BooksController < ApplicationController
       params.require(:book).permit(
         :name, 
         :author,
+        :user_id,
         :category_ids => []
       )
     end

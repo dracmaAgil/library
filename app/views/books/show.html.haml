@@ -6,24 +6,24 @@
       = link_to "return", books_path, id: 'categories_index'
   .row
     .col-md-4
-      %h5 Author
+      %h4 Author
       %p= "#{@book.author}"
   .row
     -if @book.categories.empty?
-      This book do not have any category
+      %h4 This book do not have any category
     -else
-        .col-md-4
-          %h5 Description
-          %p= "#{@book.name}"
+      .col-md-4
+        %h4 Description
+        %p= "#{@book.name}"
   .row
-    -if @book.user.empty?
+    -if @book.user_id.nil?
       This book is not borrowed
     -else
       .col-md-4
-        %h5 User
+        %h4 User
         %p= "#{@book.user.name}"
   .row
     .col-md-4
       %h5 Status
-      %p= "#{@book.Status}"
+      %p= "#{@book.status}"
     

@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   def index
-    @users = User.all.limit(5)
-    @categories = Category.all.limit(5)
-    @books = Book.all.limit(5)
+    @users = User.where('active = 1').limit(5)
+    @categories = Category.where('active = 1').limit(5)
+    @books = Book.where('active = 1').limit(5)
   end
 end

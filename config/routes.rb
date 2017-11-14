@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   
   resources :books do
     get :cancel
+    get :listing_users
+    patch :borrowing_book
   end
   
   resources :categories do
