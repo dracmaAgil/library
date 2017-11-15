@@ -1,24 +1,17 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# library
+It's a programming test
 
-Things you may want to cover:
+* Ruby 2.3.1
 
-* Ruby version
+* Rails 5.1.4
 
-* System dependencies
+* Run test suit: $ rspec spec
 
-* Configuration
+The application has three cruds:
 
-* Database creation
+* User: we can create, modify, desactivate and see user details. There is an option in the user index where we can add a borrowed books wishlist for users (list icon).
 
-* Database initialization
+* book: we can create, modify, desactivate and see book details. Book has habtm relation with category There is an option in the user index where we can add a borrowed books wishlist for users. Before to access to a books index we need to create categories. There is an option in the books index where we can borrow the book to a user(book icon).
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Categories: we can create, modify, desactivate and see category details. There is a habtm relation between book and category.
