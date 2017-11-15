@@ -1,0 +1,16 @@
+%section.main
+  .page-header
+    %h1
+      Comisiones
+    = link_to 'Regresar', @user
+  %br
+  .container
+    .row
+      = simple_form_for @user, url: { action: "create_wish_list" } do |f|
+        .links
+          = link_to_add_association 'add book', f, :wish_lists, partial: 'wish_lists/wishlist_fields'
+        %br
+        = f.simple_fields_for :wish_lists do |wishlist|
+          = render partial: 'wish_lists/wishlist_fields', locals: {f: wishlist}
+        = f.button :submit
+        

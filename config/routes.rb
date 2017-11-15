@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   resources :users  do
     get :cancel
+    get :list_books
+    patch :create_wish_list
   end
   
   resources :books do

@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
   context 'user with many books' do
 
     def creating_books(user)
-      book =  build :book, user: user
+      book =  build :book, user_id: user.id
       book.save
     end
 
@@ -46,6 +46,28 @@ RSpec.describe User, type: :model do
       user1 = create :user
       3.times{ creating_books(user1) } 
       expect(user1.books.count).to be 3
+    end
+  end
+
+  context 'user with many whishlists' do
+
+    def creating_books(user)
+      book =  build :book, user_id: user.id
+      book.save
+    end
+
+    def creating_wishlists(user1, user2)
+      user1.books.each do |book|
+        wish = create :wish_list, user:user2, book_id: book.id
+      end
+    end
+
+    it 'user have many wishlists' do
+      user1 = create :user
+      user2 = create :user
+      3.times{ creating_books(user1) } 
+      creating_wishlists(user1, user2)
+      expect(user2.wish_lists.count).to be 3
     end
   end
 

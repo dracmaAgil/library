@@ -31,6 +31,8 @@
                     %i.fa.fa-pencil.bigger-130.fa-lg
                   = link_to user_cancel_path(user), class: 'has-tooltip', data: { toggle: 'tooltip', placement: 'top', :confirm => 'Are you sure?' }, title: 'Delete user' do
                     %i.fa.fa-trash.bigger-130.fa-lg.text-danger
+                  = link_to user_list_books_path(user), class: 'has-tooltip', data: { toggle: 'tooltip', placement: 'top' }, title: 'user wishlist' do
+                    %i.fa.fa-list.bigger-130.fa-lg
   .row
     .col-md-12.apple_pagination
       = will_paginate @users

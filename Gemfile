@@ -39,6 +39,7 @@ gem 'ransack'
 gem 'pg'
 gem 'haml-rails'
 gem 'will_paginate'
+gem "cocoon"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -50,10 +50,29 @@ class UsersController < ApplicationController
       if @user.books.empty? && @user.update_attribute(:active, 0)
         redirect_to users_path, notice: 'user cancelled'
       else
-        redirect_to users_path, flash: { error: @user.errors.full_messages.to_sentence }
+        redirect_to users_path, flash: { error: 'Only delete users without books' }
       end
     rescue Exception => e
       redirect_to users_path, flash: { error: e.message }
+    end
+  end
+
+  def list_books
+    @user = User.find(params[:user_id])
+    @books = Book.where('active = ? and status = ?', 1, 'borrowed')
+
+  end
+
+  def create_wish_list
+    @user = User.find(params[:user_id])
+    begin
+      if @user.update(user_params)
+        redirect_to users_path, notice: 'wish list created'
+      else
+        redirect_to user_list_books_path, flash: { error: @user.errors.full_messages.to_sentence }
+      end
+    rescue Exception => e
+      redirect_to user_list_books_path, flash: { error: e.message }
     end
   end
 
@@ -63,7 +82,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(
         :name, 
         :email, 
-        :cellphone
+        :cellphone,
+        wish_lists_attributes: [:user_id, :book_id, :_destroy]
       )
     end
 end

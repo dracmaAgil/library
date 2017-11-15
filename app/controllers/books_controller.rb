@@ -19,7 +19,6 @@ class BooksController < ApplicationController
     begin
       @book = Book.new(book_params)
       @book.status = 'available'
-      pry
       if @book.save
         redirect_to books_path, notice: 'Created book'
       else

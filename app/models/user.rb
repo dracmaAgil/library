@@ -1,6 +1,9 @@
 class User < ApplicationRecord
 
   has_many :books
+  has_many :wish_lists
+
+  accepts_nested_attributes_for :wish_lists, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :email, presence: true
   validates :email, uniqueness: {case_sensitive: true}

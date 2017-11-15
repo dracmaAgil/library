@@ -1,0 +1,14 @@
+.nested-fields
+  %table.table.table-striped.table-bordered.table-hover
+    %tr
+      %th Book
+      %th User
+      %th
+    %tr
+      %td
+        = f.select :book_id, @books.collect { |b| [b.name, b.id] }, { include_blank: true }
+      %td
+        = f.label :user_id, @user.name
+        = f.hidden_field :user_id, value: @user.id, readonly: 'readonly'
+      %td
+        = link_to_remove_association "close", f
